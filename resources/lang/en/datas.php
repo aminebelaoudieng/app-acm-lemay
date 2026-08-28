@@ -1,0 +1,68 @@
+<?php
+
+return [
+    'compagnies' => [
+        'sutton' => 'Sutton',
+        'remax' => 'Remax',
+    ],
+    'type_propriete' => [
+        '' => '-',
+        'empty' => '-',
+        'maison_unifamiliale' => 'Single-family home',
+        'loft_studio' => 'Loft / Studio',
+        'intergeneration' => 'Intergenerational',
+        'fermette' => 'Small farm',
+        'terrain' => 'Land',
+        'condo' => 'Condo',
+        'plex' => 'Plex',
+        'maison_mobile' => 'Mobile home',
+        'chalet' => 'Cottage',
+    ],
+    'type_batiment' => [
+        '' => '-',
+        'empty' => '-',
+        'plain_pied' => 'Bungalow',
+        'paliers_multiples' => 'Split-level',
+        'jumele' => 'Semi-detached',
+        'nouvelle_construction' => 'New construction',
+        'centenaire_historique' => 'Century-old / Historic',
+        'a_etages' => 'Two or more storeys',
+        'detache' => 'Detached',
+        'en_rangee' => 'Row',
+        '10_ans_et_moins' => '10 years or less',
+    ],
+    'type_copropriete' => [
+        '' => '-',
+        'empty' => '-',
+        'divise' => 'Divided',
+        'indivise' => 'Undivided',
+    ],
+    'categories' => [
+        'unifamiliale' => 'Single-family',
+        'condo' => 'Condo or Condominium',
+        'commercial' => 'Commercial plex / multiplex',
+        'residentiel' => 'Residential plex / multiplex',
+        'mixte' => 'Mixed-use plex / multiplex',
+    ],
+    'type_stationnement' => [
+        'aucun' => 'None',
+        'stationnement' => 'Parking',
+        'garage' => 'Garage',
+    ],
+    'type_vue' => [
+        '' => '-',
+        'empty' => '-',
+        'eau' => 'Waterfront',
+        'panoramique' => 'Panoramic',
+        'ville' => 'City view',
+        'montagne' => 'Mountain view',
+    ],
+    'type_finition' => [
+        'vieillot' => 'Old-fashioned',
+        'decent' => 'Decent',
+        'entree_de_gamme' => 'Entry-level',
+        'haut_de_gamme' => 'High-end',
+        'designer' => 'Designer',
+        'luxueux' => 'Luxury',
+    ],
+];

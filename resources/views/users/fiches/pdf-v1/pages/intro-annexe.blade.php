@@ -1,0 +1,1 @@
+<h1 class="bg-color section-intro">{{ __('pdf.intro_annexe.title') }}</h1>

@@ -1,0 +1,20 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+class AddfieldTypeStationnementFichesTable extends Migration
+{
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::table('fiches', function (Blueprint $table) {
+            $table->string('caracteristique_type_stationnement')->default('stationnement');
+        });
+    }
+}
