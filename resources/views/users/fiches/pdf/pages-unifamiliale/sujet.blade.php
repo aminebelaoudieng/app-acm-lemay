@@ -91,7 +91,7 @@
         transform: scale(1.75);
     }
 </style>
-<div class="sujet-page">
+<div class="sujet-page subject-overview-page">
     <h1 class="txt-center upper page-title">{{ __('pdf.sujet.title') }}</h1>
     <div class="clearfix"></div>
     <table>

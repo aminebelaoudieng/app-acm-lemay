@@ -52,7 +52,7 @@
 </style>
 
 <div class="front-page page">
-    <h1 class="{{ (!$user->design_sans_plus)?'title-with-style':'' }} page-title">{{ __('pdf.front.title') }}</h1>
+    <h1 class="page-title">{{ __('pdf.front.title') }}</h1>
     <div class="clearfix"></div>
     <div class="img center">
         <img src="{{ $ficheMaster->streetviewPDF }}">

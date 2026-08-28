@@ -2,6 +2,10 @@
 
 @section('content')
 
+@php
+    $pdfAccent = $user->color ?: '#FF0C17';
+@endphp
+
 <style>
     html,
     body {
@@ -163,6 +167,11 @@
  
 </style>
 
+<div class="modern-pdf-footer">
+    <span>{{ $user->compagnie ?: $user->name }}</span>
+    <span class="modern-pdf-footer-title">{{ __('pdf.market_analysis_title') }}</span>
+</div>
+
 @include('users.fiches.pdf.pages.front')
 @include('users.fiches.pdf.pages.break')
 
@@ -244,5 +253,7 @@ $nb++;
 @include('users.fiches.pdf.pages.note')
 @include('users.fiches.pdf.pages.break')
 @include('users.fiches.pdf.pages.intro-annexe')
+
+@include('users.fiches.pdf.partials.modern-theme', ['pdfAccent' => $pdfAccent])
 
 @endsection

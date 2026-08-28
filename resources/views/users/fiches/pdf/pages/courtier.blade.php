@@ -68,21 +68,21 @@
 </style>
 
 
-    <div class="courtier-page page">
+    <div class="courtier-page broker-page page">
         <div class="profile">
             <div class="img">
                 <img src="{{ (isset($user->photo))? public_path('uploads/users/'.$user->photo):'' }}" />
             </div>
             <div class="infos">
                 <p class="txt-color preparedby upper">{{ __('pdf.prepared_by') }}</p>
-                <p class="name upper">{{ $user->name }}</p>
+                <p class="name">{{ $user->name }}</p>
                 <p class="details">{{ $user->poste }}</p>
                 <p class="details">{{ $user->compagnie }}</p>
             </div>
         </div>
 
         <div class="intro">
-            <p class="title upper">{{ __('pdf.market_analysis_title') }}</p>
+            <p class="title">{{ __('pdf.market_analysis_title') }}</p>
             <div class="text">{!! $ficheMaster->intro ?: __('fiches_subtabs.intro_default') !!}</div>
             <div class="signature">
                 <p class="name">{{ $user->name }}</p>

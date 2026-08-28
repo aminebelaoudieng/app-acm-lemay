@@ -1,106 +1,47 @@
-<style>
-    .first-page .logo {
-        max-width:150px;
-        margin-top:-60px;
-        margin-left:-20px;
-    }
-    .first-page .slogan{
-        font-size:26px;
-        font-family: "lato-bold";
-        font-weight:"bold";
-        letter-spacing:5px;
-        text-align:center;
-        margin-top:400px!important;
-    }
-    .first-page .image-header{
-        margin-top:200px;
-        margin-left:auto;
-        margin-right:auto;
-        position:relative;
-        z-index:100000000;
-        margin-bottom:100px;
-        text-align:center;
-    }
-    .first-page .slogan.title-with-image-header{
- 
-        margin-top:0px!important;
-    }
-    .first-page .courtier{
-        padding:0px;
-        width:280px;
-        position:absolute;
-        right:0px;
-        top:900px;
-    }
-    .first-page .courtier .adresse{
-        padding:0px;
-        width:120px;
-        text-align:right;
-    }
-    .first-page .courtier .adresse div,
-    .first-page .courtier .infos div{
-       display:flex;
-       line-height:10px;
-    }
-    .first-page .courtier .adresse div p,
-    .first-page .courtier .infos div p{
-        padding-top:0px;
-        padding-bottom:5px;
-    }
-  
-    .first-page .courtier .infos{
-        padding:0px;
-        width:160px;
-        line-height:10px;
-    } 
+<div class="cover-page page">
+    <img class="cover-background" src="{{ $ficheMaster->streetviewPDF }}" />
+    <div class="cover-shade"></div>
 
-    .first-page .courtier .infos div p{
-       margin-left:20px;
-       padding-left:20px;
-       border-left:1px solid {{ $user->color }};
-    }
+    <img class="cover-logo" src="{{ $user->logoHeaderPath }}" />
 
-</style>
-
-    <div class="first-page page">
-        <img class="logo" src="{{  $user->logoHeaderPath }}" />
-        @if($user->imageHeaderPath)
-        <div class="image-header"><img  src="{{  $user->imageHeaderPath }}" height="300" />
-        <h1 class="slogan  {{ ($user->imageHeaderPath)?'title-with-image-header':'' }} {{ (!$user->design_sans_plus)?'title-with-style':'' }}">
-        {{ $user->slogan }}
-        </h1>
-        </div>
-        @else
-        <h1 class="slogan {{ (!$user->design_sans_plus)?'title-with-style':'' }}">
-        {{ $user->slogan }}
-        </h1>
-        @endif
-        <table class="courtier">
-            <tr>
-                <td class="adresse">
-                    <div>
-                    <p>
-                        <b>
-                        {{ $user->adresse }}<br/>
-                        {{ $user->ville }} {{ $user->province }}<br/>
-                        {{ $user->code_postal }}
-                        </b>
-                    </p>
-                </div>
-                </td>
-                <td class="infos"> 
-                    <div>
-                         <p>
-                            {{ $user->email }}
-                            <br />
-                            {{ $user->telephone }}
-                            <br />
-                            {{ $user->siteweb }}
-                        </p>
-                    </div>
-                </td>
-            </tr>
-
-        </table>
+    <div class="cover-content">
+        <span class="cover-kicker">{{ __('pdf.front.title') }}</span>
+        <h1 class="cover-title">{{ __('pdf.market_analysis_title') }}</h1>
+        <div class="cover-rule"></div>
+        <p class="cover-address">
+            {{ $ficheMaster->numero_civic }} {{ $ficheMaster->rue }}{{ ($ficheMaster->appartement) ? ' #'.$ficheMaster->appartement : '' }}<br />
+            {{ $ficheMaster->ville }}, {{ $ficheMaster->province }} {{ $ficheMaster->code_postal }}
+        </p>
+        <p class="cover-slogan {{ (!$user->design_sans_plus) ? 'title-with-style' : '' }}">{{ $user->slogan }}</p>
     </div>
-    <div class="background-dots"><img src="{{ public_path('images/pdf/background-dots.png') }}" /></div>
+
+    <table class="cover-meta" cellpadding="0" cellspacing="0">
+        <tr>
+            <td width="31%">
+                <span class="cover-meta-label">{{ __('pdf.prepared_by') }}</span><br />
+                <span class="cover-meta-value">{{ $user->name }}</span><br />
+                <span>{{ $user->poste }}{{ $user->compagnie ? ' · '.$user->compagnie : '' }}</span>
+            </td>
+            <td width="23%">
+                <span class="cover-meta-label">{{ __('pdf.front.analysis_date') }}</span><br />
+                <span class="cover-meta-value">{{ $ficheMaster->dateFormat }}</span><br />
+                <span>{{ $ficheMaster->periodeMois }}</span>
+            </td>
+            <td width="27%">
+                <span class="cover-meta-label">Contact</span><br />
+                <span>{{ $user->adresse }}</span><br />
+                <span>{{ $user->ville }} {{ $user->province }} {{ $user->code_postal }}</span><br />
+                <span>{{ $user->telephone }}</span><br />
+                <span>{{ $user->email }}</span><br />
+                <span>{{ $user->siteweb }}</span>
+            </td>
+            <td width="19%" align="right">
+                @if($user->imageHeaderPath)
+                    <img class="cover-brand-image" src="{{ $user->imageHeaderPath }}" />
+                @else
+                    <img class="cover-brand-image" src="{{ $user->logoFooterPath }}" />
+                @endif
+            </td>
+        </tr>
+    </table>
+</div>

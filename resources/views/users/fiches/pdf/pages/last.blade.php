@@ -1,213 +1,162 @@
 @extends('layouts.pdf')
 
 @section('content')
+@php
+    $pdfAccent = $user->color ?: '#FF0C17';
+@endphp
+
 <style>
+    @font-face {
+        font-family: "opensans-modern";
+        font-style: normal;
+        font-weight: normal;
+        src: url({{ public_path('fonts/OpenSans.ttf') }}) format('truetype');
+    }
+
+    @font-face {
+        font-family: "opensans-modern";
+        font-style: normal;
+        font-weight: bold;
+        src: url({{ public_path('fonts/OpenSans_Bold.ttf') }}) format('truetype');
+    }
+
     html,
     body {
-        font-size: 12px;
-        font-family: 'opensans', sans-serif;
+        margin: 0;
+        color: #111111;
+        background-color: #f7f5f1;
+        font-family: "opensans-modern", "opensans", sans-serif;
     }
 
-    * {
-        vertical-align: top;
+    .closing-page {
+        position: relative;
+        height: 990px;
+        padding: 44px 48px;
     }
 
-    .page {
-        max-width: 80%;
-        margin: auto;
+    .closing-logo {
+        max-width: 160px;
+        max-height: 95px;
     }
 
-    .page-break {
-        page-break-after: always;
-    }
-
-    .clearfix {
-        width: 100%;
-        display: block;
-        clear: both;
-    }
-
-    table {
-        font-size: 90%;
-    }
-
-    .line {
-        width: 100%;
-        height: 1px;
-        margin: auto;
-        background-color: {{ $user->color }};
-        margin: 20px auto;
-        clear: both;
-    }
-
-    .bg-color {
-        background-color: {{ $user->color }};
-        color: white;
-        padding: 5px 10px;
-    }
-
-    .txt-color {
-        color: {{ $user->color }};
-    }
-
-    .line-color {
-        background-color: {{ $user->color }};
-    }
-
-    .compagnie {
-        margin: 300px auto;
-    }
-
-    .info {
-        padding-top: 40px;
-        padding-bottom: 20px;
-        text-align: center;
-
-    }
-
-    .info.slogan {
-        border-bottom: 1px solid white;
+    .closing-kicker {
+        color: {{ $pdfAccent }};
+        font-size: 8px;
+        font-weight: bold;
+        letter-spacing: 1.1px;
+        margin-top: 210px;
         text-transform: uppercase;
     }
 
-    .info.logo {
-        padding-top: 0px;
-        padding-bottom: 40px;
+    .closing-title {
+        max-width: 620px;
+        margin: 12px 0 18px 0;
+        color: #111111;
+        font-size: 34px;
+        font-weight: bold;
+        letter-spacing: -1px;
+        line-height: 1.12;
     }
 
-    .info.logo img {
-        max-width: 100px;
-    }
-    .first-page {
-        
-        z-index:10;
-    }
-    .first-page .logo {
-        max-width:150px;
-        margin-top:-50px;
-        margin-left:-80px;
-    }
-    .first-page .slogan{
-        font-size:30px;
-        font-family: "lato-bold";
-        font-weight:"bold";
-        letter-spacing:5px;
-        text-align:center;
-        position:absolute;
-        top:400px;
-        left:0px;
-        right:0px;
-        border:1px solid transparent;
-        width:125%;
-        display:block;
-    }
-  
-    .first-page .compagnie{
-        padding:0px;
-        width:280px;
-        position:absolute;
-        bottom:300px;
-    }
-    .first-page .courtier .adresse{
-        padding:0px;
-        width:120px;
-        text-align:right;
-    }
-    .first-page .courtier .adresse div,
-    .first-page .courtier .infos div{
-       display:flex;
-       line-height:10px;
-    }
-    .first-page .courtier .adresse div p,
-    .first-page .courtier .infos div p{
-        padding-top:0px;
-        padding-bottom:5px;
-    }
-  
-    .first-page .courtier .infos{
-        padding:0px;
-        width:160px;
-        line-height:10px;
-    } 
-
-    .first-page .courtier .infos div p{
-       margin-left:20px;
-       padding-left:20px;
-       border-left:1px solid {{ $user->color }};
+    .closing-title.title-with-style:before,
+    .closing-title.title-with-style:after {
+        color: {{ $pdfAccent }};
+        content: "+";
+        display: inline;
     }
 
+    .closing-rule {
+        width: 58px;
+        height: 5px;
+        margin-bottom: 30px;
+        background-color: {{ $pdfAccent }};
+    }
 
-    .background-dots{
-        height:1150px;
-        width:125%;
+    .closing-card {
+        width: 100%;
+        color: #ffffff;
+        background-color: #111111;
+        border-top: 5px solid {{ $pdfAccent }};
+        border-radius: 12px;
+    }
+
+    .closing-card td {
+        padding: 24px;
+        vertical-align: middle;
+    }
+
+    .closing-card .closing-label {
+        color: {{ $pdfAccent }};
+        font-size: 7px;
+        font-weight: bold;
+        letter-spacing: .8px;
+        text-transform: uppercase;
+    }
+
+    .closing-card .closing-company {
+        color: #ffffff;
+        font-size: 16px;
+        font-weight: bold;
+        line-height: 1.25;
+    }
+
+    .closing-card .closing-contact {
+        color: #e6e1da;
+        font-size: 10px;
+        line-height: 1.55;
+    }
+
+    .closing-footer-logo {
+        max-width: 125px;
+        max-height: 75px;
+    }
+
+    .closing-footer {
         position: absolute;
-        left: -120px;
-        right: -120px;
-        top: -140px;
-        bottom: -100px;
-        padding:80px;
-        z-index:-1;
-    }
-    .background-dots img{
-        height:1150px;
-        width:125%;
-    }
-    .title-with-style:before,
-    .title-with-style:after{
-        content: "+";
-        display:inline;
-        color: {{ $user->color }};
-    }
-      .title-with-style:before,
-    .title-with-style:after{
-        content: "+";
-        display:inline;
-        color: {{ $user->color }};
-    } 
-     .title-with-style{
-        font-size:18px!important;
-    }
-    .line{
-        margin-top:30px;
-        width:80%;
-        height:1px;
-        background-color:#fff;
-        margin-bottom:0px;
+        left: 48px;
+        right: 48px;
+        bottom: 34px;
+        border-top: 1px solid #dedad3;
+        color: #77716b;
+        font-size: 8px;
+        padding-top: 9px;
     }
 </style>
 
+<div class="closing-page">
+    <img class="closing-logo" src="{{ $user->logoHeaderPath }}" />
 
-    <div class="first-page page">
+    <div class="closing-kicker">{{ __('pdf.market_analysis_title') }}</div>
+    <h1 class="closing-title {{ (!$user->design_sans_plus) ? 'title-with-style' : '' }}">{{ $user->slogan }}</h1>
+    <div class="closing-rule"></div>
 
-        <h1 class="slogan {{ (!$user->design_sans_plus)?'title-with-style':'' }}">
-        {{ $user->slogan }}
-        </h1>
-        
-        <table class="bg-color compagnie" cellpadding="0" cellspacing="0">
-            <tr>
-                <td class="info adresse">
-                    <b>{{ $user->adresse }}</b>
-                    <br />
-                    <b>{{ $user->ville }}</b>
-                    <br />
-                    <b>{{ $user->code_postal }}</b>
-                    <br /> <br />
-                    {{ $user->telephone }}
-                    <br />
-                    {{ $user->email }}
-                    <br />
-                    {{ $user->siteweb }}
-                    <div class="line"></div>
-                </td>
-            </tr>
-            <tr>
-                <td class="info logo">
-                    <img src="{{  $user->logoFooterPath }}" />
-                </td>
-            </tr>
-        </table>
+    <table class="closing-card" cellpadding="0" cellspacing="0">
+        <tr>
+            <td width="38%">
+                <span class="closing-label">{{ __('pdf.prepared_by') }}</span><br />
+                <span class="closing-company">{{ $user->name }}</span><br />
+                <span class="closing-contact">
+                    {{ $user->poste }}
+                    @if($user->compagnie)
+                        <br />{{ $user->compagnie }}
+                    @endif
+                </span>
+            </td>
+            <td width="42%" class="closing-contact">
+                {{ $user->adresse }}<br />
+                {{ $user->ville }} {{ $user->province }} {{ $user->code_postal }}<br /><br />
+                {{ $user->telephone }}<br />
+                {{ $user->email }}<br />
+                {{ $user->siteweb }}
+            </td>
+            <td width="20%" align="right">
+                <img class="closing-footer-logo" src="{{ $user->logoFooterPath }}" />
+            </td>
+        </tr>
+    </table>
+
+    <div class="closing-footer">
+        {{ $user->compagnie ?: $user->name }}
     </div>
-
-<div class="background-dots"><img src="{{ public_path('images/pdf/background-dots.png') }}" /></div>
-
+</div>
 @endsection
